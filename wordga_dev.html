@@ -84,6 +84,32 @@
 			canvas.addEventListener("mouseup", getPositionUp, false);
 			canvas.addEventListener("mouseout", getPositionLast, false);
 
+			// Set up touch events for mobile, etc -- thanks https://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html
+			canvas.addEventListener("touchstart", function (e) {
+				mousePos = getTouchPos(canvas, e);
+				var touch = e.touches[0];
+				var mouseEvent = new MouseEvent("mousedown", {
+					clientX: touch.clientX,
+					clientY: touch.clientY
+				});
+				canvas.dispatchEvent(mouseEvent);
+			}, false);
+			canvas.addEventListener("touchend", function (e) {
+				var mouseEvent = new MouseEvent("mouseup", {});
+				canvas.dispatchEvent(mouseEvent);
+			}, false);
+			canvas.addEventListener("touchmove", function (e) {
+				var touch = e.touches[0];
+				var mouseEvent = new MouseEvent("mousemove", {
+					clientX: touch.clientX,
+					clientY: touch.clientY
+				});
+				canvas.dispatchEvent(mouseEvent);
+			}, false);
+
+
+
+
 			// Prevent scrolling when touching the canvas -- thanks https://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html
 			document.body.addEventListener("touchstart", function (e) {
 				if (e.target == canvas) {
