@@ -84,6 +84,25 @@
 			canvas.addEventListener("mouseup", getPositionUp, false);
 			canvas.addEventListener("mouseout", getPositionLast, false);
 
+			// Prevent scrolling when touching the canvas -- thanks https://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html
+			document.body.addEventListener("touchstart", function (e) {
+				if (e.target == canvas) {
+					e.preventDefault();
+				}
+			}, false);
+			document.body.addEventListener("touchend", function (e) {
+				if (e.target == canvas) {
+					e.preventDefault();
+				}
+			}, false);
+			document.body.addEventListener("touchmove", function (e) {
+				if (e.target == canvas) {
+					e.preventDefault();
+				}
+			}, false);
+
+
+
 			xDown = undefined;
 			yDown = undefined;
 			xUp = undefined;
